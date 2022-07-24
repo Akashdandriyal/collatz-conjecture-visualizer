@@ -1,0 +1,11 @@
+<div>
+  <div style="width: 100%; height: 600px;">
+      <canvas baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="lineChartType"
+      ></canvas>
+  </div>
+  <button (click)="randomize()">Update</button>
+  <button (click)="generateSeries()">Generate</button>
+</div>
