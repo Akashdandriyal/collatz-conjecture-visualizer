@@ -1,11 +1,35 @@
-<div>
-  <div style="width: 100%; height: 600px;">
-      <canvas baseChart
-          [data]="lineChartData"
-          [options]="lineChartOptions"
-          [type]="lineChartType"
-      ></canvas>
-  </div>
-  <button (click)="randomize()">Update</button>
-  <button (click)="generateSeries()">Generate</button>
+<header>
+  <mat-toolbar color="accent">
+   <span>Collatz Conjecture Visualizer</span><mat-icon>timeline</mat-icon>
+   <span class="header-spacer"></span>
+   <button mat-icon-button class="mat-focus-indicator example-icon favorite-icon mat-icon-button mat-button-base" aria-label="">
+     <mat-icon>favorite</mat-icon>
+   </button>
+   <button mat-icon-button class="share-icon" aria-label="">
+    <mat-icon>share</mat-icon>
+  </button>
+ </mat-toolbar>
+</header>
+<div class="main-content">
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="First">
+      <app-line-chart [lineChartData]="lineChartData" #lineChart></app-line-chart>
+    </mat-tab>
+    <mat-tab label="Second">
+      <app-line-chart [lineChartData]="lineChartLogData" #lineChart></app-line-chart>
+    </mat-tab>
+  </mat-tab-group>
+  <button mat-raised-button color="accent" (click)="randomize()">Update</button>
+  <button mat-button color="primary" (click)="generateSeries()">Generate</button>
+  <a mat-button color="primary" href="#" (click)="downloadCanvas($event)">Download</a>
+  <mat-slider
+    thumbLabel
+    [displayWith]="formatLabel"
+    [(ngModel)]="sequenceGenerationTime"
+    tickInterval="1000"
+    step="0.1"
+    min="0"
+    max="1"
+    aria-label="units"
+  ></mat-slider>
 </div>
