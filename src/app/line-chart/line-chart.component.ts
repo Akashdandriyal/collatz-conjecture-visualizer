@@ -32,6 +32,16 @@ export class LineChartComponent implements OnInit {
             color: 'rgba(255,0,0,0.3)'
           },
         },
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Title Chart'
+      },
+      legend: {
+        display: true,
+        position: 'bottom',
+      }
     }
   };
 

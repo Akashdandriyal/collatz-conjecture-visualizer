@@ -9,11 +9,13 @@ import { LineChartComponent } from './line-chart/line-chart.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'collatz-conjecture-visualizer';
+  title = 'Collatz Conjecture Visualizer';
   dataLabel = [0];
-  durationInSeconds = 2;
-  sequenceGenerationTime: number = 0.4;
+  valueEntered!: number;
+  sequenceGenerationTime = 0.4;
+  disableSlider = false;
   @ViewChildren('lineChart') lineChartComponents!: QueryList<LineChartComponent>;
+
   constructor(private _snackBar: MatSnackBar) {}
 
   lineChartData: ChartConfiguration['data'] = {
@@ -30,13 +32,24 @@ export class AppComponent {
     labels: this.dataLabel
   }
 
+  checkValue(e: any): void {
+    this.valueEntered = e.target.value;
+    console.log(this.valueEntered);
+    if(this.valueEntered > 1000) {
+      this.disableSlider = true;
+    }
+    else {
+      this.disableSlider = false;
+    }
+  }
+
   //Slider component
   formatLabel(value: number) {
     return value + 's';
   }
 
-  public randomize(): void {
-    let num = Math.round(Math.random() * 100);
+  public randomize() : void {
+    let num = this.valueEntered;
     this.lineChartData.datasets.push({
       data: [num],
       label: num + ''
@@ -55,27 +68,48 @@ export class AppComponent {
     let index = this.lineChartData.datasets.length;
     let num: any = this.lineChartData.datasets[index - 1].data[0];
     console.log(this.sequenceGenerationTime);
-    let interval = setInterval(() => {
-      if(num % 2 == 1) {
-        num = num * 3 + 1;
+    if(this.sequenceGenerationTime > 0 || !this.disableSlider) {
+      let interval = setInterval(() => {
+        if(num % 2 == 1) {
+          num = num * 3 + 1;
+        }
+        else {
+          num /= 2;
+        }
+        this.lineChartData.datasets[index - 1].data.push(num);
+        this.lineChartLogData.datasets[index - 1].data.push(Math.log10(num));
+        if(this.dataLabel.length <= this.lineChartData.datasets[index - 1].data.length) {
+          this.dataLabel.push(this.dataLabel.length);
+        }
+        // this.chart?.update();
+        this.lineChartComponents.forEach(lineChartComponent => {
+          lineChartComponent.updateChart();
+        });
+        if(num == 1) {
+          clearInterval(interval);
+          this.openSnackBar("Sequence Generated");
+        }
+      },this.sequenceGenerationTime * 1000);
+    }
+    else {
+      while(num != 1) {
+        if(num % 2 == 1) {
+          num = num * 3 + 1;
+        }
+        else {
+          num /= 2;
+        }
+        this.lineChartData.datasets[index - 1].data.push(num);
+        this.lineChartLogData.datasets[index - 1].data.push(Math.log10(num));
+        if(this.dataLabel.length <= this.lineChartData.datasets[index - 1].data.length) {
+          this.dataLabel.push(this.dataLabel.length);
+        }
       }
-      else {
-        num /= 2;
-      }
-      this.lineChartData.datasets[index - 1].data.push(num);
-      this.lineChartLogData.datasets[index - 1].data.push(Math.log10(num));
-      if(this.dataLabel.length <= this.lineChartData.datasets[index - 1].data.length) {
-        this.dataLabel.push(this.dataLabel.length);
-      }
-      // this.chart?.update();
       this.lineChartComponents.forEach(lineChartComponent => {
         lineChartComponent.updateChart();
-      })
-      if(num == 1) {
-        clearInterval(interval);
-        this.openSnackBar("Sequence Generated");
-      }
-    },this.sequenceGenerationTime * 1000);
+      });
+      this.openSnackBar("Sequence Generated");
+    }
   }
 
   openSnackBar(message: string) {
@@ -83,14 +117,20 @@ export class AppComponent {
     //   duration: this.durationInSeconds * 1000,
     // });
     this._snackBar.open(message, "", {
-      duration: this.durationInSeconds * 1000,
+      duration: 2000,
       panelClass: ['mat-toolbar', 'mat-green']
     });
   }
 
-  downloadCanvas(event: any) {
-    let anchor = event.target;
-    anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
-    anchor.download = "test.png";
+  // downloadCanvas(event: any) {
+  //   let anchor = event.target;
+  //   anchor.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
+  //   anchor.download = "test.png";
+  // }
+  downloadCanvas() {
+    let a = document.createElement("a");
+    a.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
+    a.download = "test.png";
+    a.click();
   }
 }
