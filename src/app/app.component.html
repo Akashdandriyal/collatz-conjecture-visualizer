@@ -2,57 +2,44 @@
   <mat-toolbar color="primary">
     <h1>Collatz Conjecture Visualizer</h1><mat-icon>timeline</mat-icon>
     <span class="header-spacer"></span>
-    <button mat-icon-button class="share-icon" aria-label="" (click)="drawer.toggle()">
-      <mat-icon>info</mat-icon>
-    </button>
   </mat-toolbar>
 </header>
 <div class="container">
-  <mat-drawer-container class="content-container" autosize>
-    <mat-drawer #drawer class="content-info" position="end" mode="over">
-      <p>Auto-resizing sidenav</p>
-      <p>orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-      <p>orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-      <p>orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-      <p>orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-    </mat-drawer>
-    <div class="main-content dark">
-      <mat-tab-group mat-align-tabs="start" color="primary">
-        <mat-tab label="First">
-          <app-line-chart [lineChartData]="lineChartData" #lineChart></app-line-chart>
-        </mat-tab>
-        <mat-tab label="Second">
-          <app-line-chart [lineChartData]="lineChartLogData" #lineChart></app-line-chart>
-        </mat-tab>
-      </mat-tab-group>
-      <div class="action-buttons-container">
-        <mat-form-field appearance="outline" color="primary">
-          <mat-label>Enter Number</mat-label>
-          <input matInput placeholder="Placeholder" type="number" (keypress)="checkValue($event)">
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="randomize()">Update</button>
-        <span class="speed-slider-button">
-          <span color="primary">Speed</span>
-          <mat-slider
-            thumbLabel
-            [displayWith]="formatLabel"
-            [(ngModel)]="sequenceGenerationTime"
-            tickInterval="1000"
-            step="0.1"
-            min="0"
-            max="1"
-            aria-label="units"
-            [disabled]="disableSlider"
-          ></mat-slider>
-        </span>
-        <!-- <a mat-button color="accent" href="#" (click)="downloadCanvas($event)"><mat-icon>download</mat-icon></a> -->
-        <button mat-button color="primary" (click)="downloadCanvas()"><mat-icon>download</mat-icon></button>
-      </div>
+  <div class="main-content dark">
+    <mat-tab-group mat-align-tabs="start" color="primary">
+      <mat-tab label="First">
+        <app-line-chart chartTitle="First Chart" [lineChartData]="lineChartData" #lineChart></app-line-chart>
+      </mat-tab>
+      <mat-tab label="Second">
+        <app-line-chart chartTitle="Second Chart" [lineChartData]="lineChartLogData" #lineChart></app-line-chart>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="action-buttons-container">
+      <span class="delay-slider-button" [matTooltip]="sliderToolTip" matTooltipPosition="below">
+        <span color="primary">Delay </span>
+        <mat-slider
+          thumbLabel
+          [displayWith]="formatLabel"
+          [(ngModel)]="sequenceGenerationTime"
+          tickInterval="1000"
+          step="0.1"
+          min="0"
+          max="1"
+          aria-label="units"
+          [disabled]="disableSlider"
+        ></mat-slider>
+      </span>
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Enter Number</mat-label>
+        <input matInput placeholder="Placeholder" type="number" min="0" (keypress)="checkValue($event)" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="randomize()">Update</button>
+      <button mat-button color="primary" (click)="downloadCanvas()" ><mat-icon>download</mat-icon></button>
     </div>
-  </mat-drawer-container>
+  </div>
 </div>
-<!-- <footer>
-  <mat-toolbar color="accent" class="footer-section">
+<footer>
+  <mat-toolbar color="primary" class="footer-section">
     <p><strong>developed by akashdandriyal</strong></p>
   </mat-toolbar>
-</footer> -->
+</footer>

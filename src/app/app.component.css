@@ -12,14 +12,6 @@
     flex: 1 1 auto;
 }
 
-/* .container {
-    min-height: calc(100vh - 100px);
-} */
-
-.content-container {
-    background-color: #ffffff;
-}
-
 .main-content {
     padding: 2%;
 }
@@ -29,13 +21,13 @@
     justify-content: space-between;
 } */
 
-.speed-slider-button {
+.delay-slider-button {
     padding: 10px 16px;
     border: 1px solid #ff4081;
     border-radius: 4px;
 }
 
-.speed-slider-button > span{
+.delay-slider-button > span{
     color: #ff4081;
 }
 
@@ -44,11 +36,11 @@
 }
 
 
-/* .footer-section {
+.footer-section {
     display: flex;
     justify-content: center;
 }
 
 .footer-section > p {
     font-size: 16px;
-} */
+}

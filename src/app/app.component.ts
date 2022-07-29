@@ -14,6 +14,7 @@ export class AppComponent {
   valueEntered!: number;
   sequenceGenerationTime = 0.4;
   disableSlider = false;
+  sliderToolTip = "Adjust generation delay"
   @ViewChildren('lineChart') lineChartComponents!: QueryList<LineChartComponent>;
 
   constructor(private _snackBar: MatSnackBar) {}
@@ -32,14 +33,17 @@ export class AppComponent {
     labels: this.dataLabel
   }
 
+  //Check input value to disable or enable the slider
   checkValue(e: any): void {
     this.valueEntered = e.target.value;
     console.log(this.valueEntered);
     if(this.valueEntered > 1000) {
       this.disableSlider = true;
+      this.sliderToolTip = "Slider is disabled for number > 1000"
     }
     else {
       this.disableSlider = false;
+      this.sliderToolTip = "Adjust generation delay"
     }
   }
 
@@ -68,7 +72,7 @@ export class AppComponent {
     let index = this.lineChartData.datasets.length;
     let num: any = this.lineChartData.datasets[index - 1].data[0];
     console.log(this.sequenceGenerationTime);
-    if(this.sequenceGenerationTime > 0 || !this.disableSlider) {
+    if(this.sequenceGenerationTime > 0 && !this.disableSlider) {
       let interval = setInterval(() => {
         if(num % 2 == 1) {
           num = num * 3 + 1;
@@ -112,25 +116,18 @@ export class AppComponent {
     }
   }
 
+  //To create popup
   openSnackBar(message: string) {
-    // this._snackBar.openFromComponent(NotificationComponent, {
-    //   duration: this.durationInSeconds * 1000,
-    // });
     this._snackBar.open(message, "", {
-      duration: 2000,
-      panelClass: ['mat-toolbar', 'mat-green']
+      duration: 2000
     });
   }
 
-  // downloadCanvas(event: any) {
-  //   let anchor = event.target;
-  //   anchor.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
-  //   anchor.download = "test.png";
-  // }
+  //To download the graph of opened tab
   downloadCanvas() {
     let a = document.createElement("a");
     a.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
-    a.download = "test.png";
+    a.download = "conjecture-graph.png";
     a.click();
   }
 }
