@@ -6,35 +6,39 @@
 </header>
 <div class="container">
   <div class="main-content dark">
-    <mat-tab-group mat-align-tabs="start" color="primary">
-      <mat-tab label="First">
-        <app-line-chart chartTitle="First Chart" [lineChartData]="lineChartData" #lineChart></app-line-chart>
+    <mat-tab-group mat-stretch-tabs color="primary">
+      <mat-tab label="Value Chart">
+        <app-line-chart chartTitle="Value Chart" [lineChartData]="lineChartData" #lineChart></app-line-chart>
       </mat-tab>
-      <mat-tab label="Second">
-        <app-line-chart chartTitle="Second Chart" [lineChartData]="lineChartLogData" #lineChart></app-line-chart>
+      <mat-tab label="Logrithmic Chart">
+        <app-line-chart chartTitle="Logrithmic Chart" [lineChartData]="lineChartLogData" #lineChart></app-line-chart>
       </mat-tab>
     </mat-tab-group>
     <div class="action-buttons-container">
-      <span class="delay-slider-button" [matTooltip]="sliderToolTip" matTooltipPosition="below">
-        <span color="primary">Delay </span>
-        <mat-slider
-          thumbLabel
-          [displayWith]="formatLabel"
-          [(ngModel)]="sequenceGenerationTime"
-          tickInterval="1000"
-          step="0.1"
-          min="0"
-          max="1"
-          aria-label="units"
-          [disabled]="disableSlider"
-        ></mat-slider>
-      </span>
-      <mat-form-field appearance="outline" color="primary">
-        <mat-label>Enter Number</mat-label>
-        <input matInput placeholder="Placeholder" type="number" min="0" (keypress)="checkValue($event)" required>
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="randomize()">Update</button>
-      <button mat-button color="primary" (click)="downloadCanvas()" ><mat-icon>download</mat-icon></button>
+      <div>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Enter Number</mat-label>
+          <input matInput placeholder="Placeholder" type="number" min="0" #userInput="ngModel" [ngModel]="valueEntered" (ngModelChange)="checkValue($event)">
+        </mat-form-field>
+        <button mat-raised-button color="primary" matTooltip="Generate sequence" matTooltipPosition="below" [disabled]="userInput.invalid && userInput.dirty" (click)="generateSeries(); userInput.reset();">Generate</button>
+      </div>
+      <div>
+        <span class="delay-slider-button" [matTooltip]="sliderToolTip" matTooltipPosition="below">
+          <span>Delay </span>
+          <mat-slider
+            thumbLabel
+            [displayWith]="formatLabel"
+            [(ngModel)]="sequenceGenerationTime"
+            tickInterval="1000"
+            step="0.1"
+            min="0"
+            max="1"
+            aria-label="units"
+            [disabled]="disableSlider"
+          ></mat-slider>
+        </span>
+        <button mat-button color="primary" matTooltip="Download current tab chart" matTooltipPosition="below" (click)="downloadCanvas()"><mat-icon>download</mat-icon></button>
+      </div>
     </div>
   </div>
 </div>

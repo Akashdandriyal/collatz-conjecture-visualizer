@@ -34,8 +34,8 @@ export class AppComponent {
   }
 
   //Check input value to disable or enable the slider
-  checkValue(e: any): void {
-    this.valueEntered = e.target.value;
+  checkValue(value: number): void {
+    this.valueEntered = value;
     console.log(this.valueEntered);
     if(this.valueEntered > 1000) {
       this.disableSlider = true;
@@ -52,7 +52,7 @@ export class AppComponent {
     return value + 's';
   }
 
-  public randomize() : void {
+  public generateSeries(): void {
     let num = this.valueEntered;
     this.lineChartData.datasets.push({
       data: [num],
@@ -63,14 +63,7 @@ export class AppComponent {
       label: num + ''
     });
     this.openSnackBar("Sequence Generating");
-    this.generateSeries();
-    // this.chart?.update();
-    console.log(this.lineChartData.datasets[0].data);
-  }
-
-  public generateSeries(): void {
     let index = this.lineChartData.datasets.length;
-    let num: any = this.lineChartData.datasets[index - 1].data[0];
     console.log(this.sequenceGenerationTime);
     if(this.sequenceGenerationTime > 0 && !this.disableSlider) {
       let interval = setInterval(() => {
@@ -85,7 +78,6 @@ export class AppComponent {
         if(this.dataLabel.length <= this.lineChartData.datasets[index - 1].data.length) {
           this.dataLabel.push(this.dataLabel.length);
         }
-        // this.chart?.update();
         this.lineChartComponents.forEach(lineChartComponent => {
           lineChartComponent.updateChart();
         });

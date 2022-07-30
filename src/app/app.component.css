@@ -16,10 +16,16 @@
     padding: 2%;
 }
 
-/* .action-buttons-container {
+.action-buttons-container {
     display: flex;
     justify-content: space-between;
-} */
+    align-items: center;
+    flex-wrap: wrap-reverse;
+}
+
+.action-buttons-container > div > button {
+    margin-left: 10px;
+}
 
 .delay-slider-button {
     padding: 10px 16px;
@@ -28,13 +34,16 @@
 }
 
 .delay-slider-button > span{
-    color: #ff4081;
+    color: #ffffffb3;
+}
+
+input {
+    color: #ffffff;
 }
 
 .dark {
     background-color: #303030;
 }
-
 
 .footer-section {
     display: flex;
