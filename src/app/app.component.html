@@ -4,21 +4,21 @@
     <span class="header-spacer"></span>
   </mat-toolbar>
 </header>
-<div class="container">
-  <div class="main-content dark">
+<div class="container dark">
+  <div class="main-content">
     <mat-tab-group mat-stretch-tabs color="primary">
       <mat-tab label="Value Chart">
-        <app-line-chart chartTitle="Value Chart" [lineChartData]="lineChartData" #lineChart></app-line-chart>
+        <app-line-chart chartTitle="Collatz Conjecture: Value Chart" [lineChartData]="lineChartData" #lineChart></app-line-chart>
       </mat-tab>
-      <mat-tab label="Logrithmic Chart">
-        <app-line-chart chartTitle="Logrithmic Chart" [lineChartData]="lineChartLogData" #lineChart></app-line-chart>
+      <mat-tab label="Logarithmic Chart">
+        <app-line-chart chartTitle="Collatz Conjecture: Logarithmic Chart" [lineChartData]="lineChartLogData" #lineChart></app-line-chart>
       </mat-tab>
     </mat-tab-group>
     <div class="action-buttons-container">
       <div>
         <mat-form-field appearance="outline" color="primary">
           <mat-label>Enter Number</mat-label>
-          <input matInput placeholder="Placeholder" type="number" min="0" #userInput="ngModel" [ngModel]="valueEntered" (ngModelChange)="checkValue($event)">
+          <input matInput type="number" min="1" #userInput="ngModel" [ngModel]="valueEntered" (ngModelChange)="checkValue($event)">
         </mat-form-field>
         <button mat-raised-button color="primary" matTooltip="Generate sequence" matTooltipPosition="below" [disabled]="userInput.invalid && userInput.dirty" (click)="generateSeries(); userInput.reset();">Generate</button>
       </div>
@@ -41,6 +41,8 @@
       </div>
     </div>
   </div>
+  <mat-divider></mat-divider>
+  <app-details color="accent"></app-details>
 </div>
 <footer>
   <mat-toolbar color="primary" class="footer-section">

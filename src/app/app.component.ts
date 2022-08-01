@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { ChartConfiguration } from 'chart.js';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { LineChartComponent } from './line-chart/line-chart.component';
 @Component({
@@ -39,7 +38,7 @@ export class AppComponent {
     console.log(this.valueEntered);
     if(this.valueEntered > 1000) {
       this.disableSlider = true;
-      this.sliderToolTip = "Slider is disabled for number > 1000"
+      this.sliderToolTip = "Delay is disabled for number > 1000"
     }
     else {
       this.disableSlider = false;
