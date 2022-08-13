@@ -2,21 +2,29 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { LineChartComponent } from './line-chart/line-chart.component';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Collatz Conjecture Visualizer';
   dataLabel = [0];
   valueEntered!: number;
   sequenceGenerationTime = 0.4;
   disableSlider = false;
-  sliderToolTip = "Adjust generation delay"
+  sliderToolTip = "Adjust generation delay";
+  hideShareOthersButton: boolean = false;
   @ViewChildren('lineChart') lineChartComponents!: QueryList<LineChartComponent>;
-
   constructor(private _snackBar: MatSnackBar) {}
+
+  ngOnInit(): void {
+    if(!navigator.canShare) {
+      this.hideShareOthersButton = true;
+    }
+  }
 
   lineChartData: ChartConfiguration['data'] = {
     datasets: [
@@ -109,7 +117,7 @@ export class AppComponent {
 
   //To create popup
   openSnackBar(message: string) {
-    this._snackBar.open(message, "", {
+    this._snackBar.open(message, "X", {
       duration: 2000
     });
   }
@@ -120,5 +128,29 @@ export class AppComponent {
     a.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
     a.download = "conjecture-graph.png";
     a.click();
+  }
+
+  shareToSocialMedia(socialMedia: string): void {
+    let loc = environment.production ? encodeURIComponent(window.location.href) : "http://localhost:4200/";
+    let title = "Collatz Conjecture";
+    switch (socialMedia) {
+      case "fb": 
+        window.open("https://www.facebook.com/sharer/sharer.php?u=" + loc, title);
+        break;
+      case "tw": 
+        window.open();
+        break;
+      case "li": 
+        window.open();
+        break;
+      case "ot":  
+        navigator.share({
+          title: 'Collatz Conjecture Visualizer',
+          text: 'A visualizer for Collatz Conjecture developed using angular.',
+          url: loc
+        });
+        break;
+      default: break;
+    }
   }
 }

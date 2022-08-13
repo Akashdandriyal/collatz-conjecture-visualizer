@@ -2,6 +2,13 @@
   <mat-toolbar color="primary">
     <h1>Collatz Conjecture Visualizer</h1><mat-icon>timeline</mat-icon>
     <span class="header-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Share" matTooltipPosition="below"><mat-icon>share</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="shareToSocialMedia('fb')"><img src="/assets/logo-facebook.svg" class="share-option-icon"/>Share on Facebook</button>
+      <button mat-menu-item (click)="shareToSocialMedia('tw')"><img src="/assets/logo-twitter.svg" class="share-option-icon"/>Share on Twitter</button>
+      <button mat-menu-item (click)="shareToSocialMedia('li')"><img src="/assets/logo-linkedin.svg" class="share-option-icon"/>Share on LinkedIn</button>
+      <button mat-menu-item (click)="shareToSocialMedia('ot')" [ngClass]="{'hide': hideShareOthersButton}"><mat-icon>link</mat-icon>Others</button>
+    </mat-menu>
   </mat-toolbar>
 </header>
 <div class="container dark">
@@ -37,7 +44,7 @@
             [disabled]="disableSlider"
           ></mat-slider>
         </span>
-        <button mat-button color="primary" matTooltip="Download current tab chart" matTooltipPosition="below" (click)="downloadCanvas()"><mat-icon>download</mat-icon></button>
+        <button mat-button color="primary" matTooltip="Download current tab chart" aria-label="Download current tab chart" matTooltipPosition="below" (click)="downloadCanvas()"><mat-icon>download</mat-icon></button>
       </div>
     </div>
   </div>

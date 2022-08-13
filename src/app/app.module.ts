@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card'; 
+import { MatMenuModule } from '@angular/material/menu'; 
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,7 +41,8 @@ import { DetailsComponent } from './details/details.component';
     MatInputModule,
     MatTooltipModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
