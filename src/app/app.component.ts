@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { environment } from 'src/environments/environment';
 
@@ -43,7 +43,6 @@ export class AppComponent implements OnInit {
   //Check input value to disable or enable the slider
   checkValue(value: number): void {
     this.valueEntered = value;
-    console.log(this.valueEntered);
     if(this.valueEntered > 1000) {
       this.disableSlider = true;
       this.sliderToolTip = "Delay is disabled for number > 1000"
@@ -69,9 +68,8 @@ export class AppComponent implements OnInit {
       data: [Math.log10(num)],
       label: num + ''
     });
-    this.openSnackBar("Sequence Generating");
     let index = this.lineChartData.datasets.length;
-    console.log(this.sequenceGenerationTime);
+    this.openSnackBar(`Generating Sequence for ${this.lineChartData.datasets[index - 1].data[0]}`);
     if(this.sequenceGenerationTime > 0 && !this.disableSlider) {
       let interval = setInterval(() => {
         if(num % 2 == 1) {
@@ -90,7 +88,7 @@ export class AppComponent implements OnInit {
         });
         if(num == 1) {
           clearInterval(interval);
-          this.openSnackBar("Sequence Generated");
+          this.openSnackBar(`Sequence Generated for ${this.lineChartData.datasets[index - 1].data[0]}`);
         }
       },this.sequenceGenerationTime * 1000);
     }
@@ -111,7 +109,7 @@ export class AppComponent implements OnInit {
       this.lineChartComponents.forEach(lineChartComponent => {
         lineChartComponent.updateChart();
       });
-      this.openSnackBar("Sequence Generated");
+      this.openSnackBar(`Sequence Generated for ${this.lineChartData.datasets[index - 1].data[0]}`);
     }
   }
 

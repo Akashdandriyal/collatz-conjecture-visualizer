@@ -19,7 +19,6 @@ export class LineChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.chartTitle);
     this.lineChartOptions = {
       responsive: true,
       maintainAspectRatio: false,
