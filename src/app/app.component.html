@@ -25,9 +25,9 @@
       <div>
         <mat-form-field appearance="outline" color="primary">
           <mat-label>Enter Number</mat-label>
-          <input matInput type="number" min="1" #userInput="ngModel" [ngModel]="valueEntered" (ngModelChange)="checkValue($event)">
+          <input matInput type="number" min="1" #userInput="ngModel" [ngModel]="valueEntered" required (ngModelChange)="checkValue($event)">
         </mat-form-field>
-        <button mat-raised-button color="primary" matTooltip="Generate sequence" matTooltipPosition="below" [disabled]="userInput.invalid && userInput.dirty" (click)="generateSeries(); userInput.reset();">Generate</button>
+        <button mat-raised-button color="primary" matTooltip="Generate sequence" matTooltipPosition="below" [disabled]="(userInput.invalid && userInput.dirty) || userInput.pristine" (click)="generateSeries(); userInput.reset();">Generate</button>
       </div>
       <div>
         <span class="delay-slider-button" [matTooltip]="sliderToolTip" matTooltipPosition="below">
