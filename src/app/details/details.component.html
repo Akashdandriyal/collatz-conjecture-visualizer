@@ -2,7 +2,19 @@
     <mat-card-title>The Collatz Conjecture</mat-card-title>
     <mat-divider></mat-divider>
     <mat-card-content>
-        The Collatz conjecture is one of the most famous unsolved problems inmathematics. The conjecture asks whether repeating two simple arithmetic operations will eventually transform everypositive integerinto 1. It concernssequences of integersin which each term is obtained from the previous term as follows: if the previous term iseven, the next term is one half of the previous term. If the previous term is odd, the next term is 3 times the previous term plus 1. The conjecture is that these sequences always reach 1, no matter which positive integer is chosen to start the sequence.
+        The Collatz conjecture is one of the most famous unsolved problems in mathematics. The conjecture asks whether repeating two simple arithmetic operations will eventually transform every positive integer into 1. It concerns sequences of integers in which each term is obtained from the previous term as follows: if the previous term is even, the next term is one half of the previous term. If the previous term is odd, the next term is 3 times the previous term plus 1. The conjecture is that these sequences always reach 1, no matter which positive integer is chosen to start the sequence.
+        <br>
+        The algorithm is defined by the function <strong><i>f</i></strong> :
+        <div class="collatz-function">
+            <div>
+                <i>f</i> (n) = <span>{{'{'}}</span> 
+            </div>
+            <div>
+                n/2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if n ≡ 0 (mod 2)
+                <br>
+                3n+1 &nbsp;&nbsp; if n ≡ 1 (mod 2)
+            </div>
+        </div>
     </mat-card-content>
     <mat-card-content class="details-graph">
         <img class="collatz-graph-img" src="/assets/conjecture-graph.png" alt="Collatz graph image">

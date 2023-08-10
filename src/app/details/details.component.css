@@ -7,6 +7,20 @@
     margin: 10px 0;
 }
 
+.collatz-function {
+    margin-top: 10px;
+    display: flex;
+}
+
+.collatz-function > div {
+    padding-left: 10px;
+}
+
+.collatz-function span {
+    font-size: 30px;
+    font-weight: 300;
+}
+
 .collatz-graph-img {
     width: 100%;
     object-fit: contain;
