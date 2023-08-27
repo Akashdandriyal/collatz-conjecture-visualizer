@@ -129,17 +129,17 @@ export class AppComponent implements OnInit {
   }
 
   shareToSocialMedia(socialMedia: string): void {
-    let loc = environment.production ? encodeURIComponent(window.location.href) : "http://localhost:4200/";
-    let title = "Collatz Conjecture";
+    let loc = environment.production ? encodeURIComponent(window.location.href) : "http://localhost:4200";
+    let title = "Check this out";
     switch (socialMedia) {
       case "fb": 
-        window.open("https://www.facebook.com/sharer/sharer.php?u=" + loc, title);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${loc}&title=${title}`);
         break;
       case "tw": 
-        window.open();
+        window.open(`https://twitter.com/intent/tweet?&text=${title}&original_referer=${loc}&url=${loc}`);
         break;
       case "li": 
-        window.open();
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${loc}`);
         break;
       case "ot":  
         navigator.share({
